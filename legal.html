@@ -3,65 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legal - Meditation App</title>
+    <title>Legal Information | Meditation App</title>
     <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 40px 20px; background: #f9f9f9; }
-    h1 { text-align: center; color: #111; margin-bottom: 40px; }
-    .tabs { 
-        display: grid; 
-        grid-template-columns: 1fr 1fr; 
-        background: #fff; 
-        border-radius: 12px; 
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-        overflow: hidden; 
-    }
-    .tabs input[type="radio"] { display: none; }
-    
+        * { box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; 
+            background-color: #f4f7f6; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 20px;
+        }
 
-    .tabs label { 
-        padding: 20px; 
-        text-align: center; 
-        cursor: pointer; 
-        font-weight: 600; 
-        transition: 0.3s; 
-        border-bottom: 2px solid transparent; 
-        color: #666; 
-        grid-column: auto;
-    }
-    .tabs .tab-content { 
-        display: none; 
-        padding: 30px; 
-        border-top: 1px solid #eee; 
-        background: #fff; 
-        grid-column: 1 / span 2; /
-    }
-    
+        /* Головна картка */
+        .card {
+            background: white;
+            width: 100%;
+            max-width: 650px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid #eef2f1;
+        }
 
-    #tos:checked ~ label[for="tos"], #pp:checked ~ label[for="pp"] { color: #4CAF50; border-bottom: 2px solid #4CAF50; background: #fdfdfd; }
-    
+        /* Контейнер для радіо-кнопок (приховані) */
+        input[type="radio"] { display: none; }
 
-    #tos:checked ~ #tos-content, #pp:checked ~ #pp-content { 
-        display: block; 
-    }
-</style>
+        /* Хедер з табами */
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid #f0f0f0;
+            background: #fff;
+        }
+
+        .tab-label {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 500;
+            color: #888;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-label:hover { color: #4CAF50; background: #fafafa; }
+
+        /* Контентна частина */
+        .content-box {
+            padding: 40px;
+            min-height: 400px;
+        }
+
+        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+
+        h2 { color: #1a1a1a; font-size: 24px; margin-top: 0; text-align: center; }
+        p { color: #555; line-height: 1.7; font-size: 16px; }
+
+        /* ЛОГІКА АКТИВНОЇ ТАБИ (БЕЗ СТРИБКІВ) */
+        
+        /* 1. Колір тексту та зелена лінія */
+        #tos:checked ~ .tabs-header label[for="tos"],
+        #pp:checked ~ .tabs-header label[for="pp"] {
+            color: #2e7d32;
+            border-bottom: 3px solid #4CAF50;
+            background-color: #f1f8e9;
+        }
+
+        /* 2. Показ контенту */
+        #tos:checked ~ .content-box #tos-content,
+        #pp:checked ~ .content-box #pp-content {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .content-box { padding: 25px; }
+            .tab-label { padding: 15px; font-size: 14px; }
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Meditation App Legal</h1>
-
-    <div class="tabs">
+    <div class="card">
         <input type="radio" name="legal" id="tos" checked>
-        <label for="tos">Terms of Service</label>
-        <div class="tab-content" id="tos-content">
-            <h2>Terms of Service</h2>
-            <p></p>
+        <input type="radio" name="legal" id="pp">
+
+        <div class="tabs-header">
+            <label for="tos" class="tab-label">Terms of Service</label>
+            <label for="pp" class="tab-label">Privacy Policy</label>
         </div>
 
-        <input type="radio" name="legal" id="pp">
-        <label for="pp">Privacy Policy</label>
-        <div class="tab-content" id="pp-content">
-            <h2>Privacy Policy</h2>
-            <p></p>
+        <div class="content-box">
+            
+            <div id="tos-content" class="tab-content">
+                <h2>Terms of Service</h2>
+                <p>Welcome to our Meditation App. By using our services, you agree to follow these terms. We provide guidance and tools for mindfulness, but individual results may vary. All intellectual property remains the property of the developers.</p>
+                <p><i>[Anya, please paste the full Terms of Service text here]</i></p>
+            </div>
+
+            <div id="pp-content" class="tab-content">
+                <h2>Privacy Policy</h2>
+                <p>Your privacy is our priority. We only collect the data necessary to improve your meditation experience, such as your selected emotions and session duration. We do not sell your personal information to third parties.</p>
+                <p><i>[Anya, please paste the full Privacy Policy text here]</i></p>
+            </div>
+
         </div>
     </div>
 
